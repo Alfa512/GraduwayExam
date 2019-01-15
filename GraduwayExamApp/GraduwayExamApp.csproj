@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -34,8 +34,6 @@
     <Folder Include="ClientApp\src\app\components\dashboard\" />
     <Folder Include="ClientApp\src\app\directives\" />
     <Folder Include="ClientApp\src\app\layout\" />
-    <Folder Include="ClientApp\src\app\models\" />
-    <Folder Include="ClientApp\src\app\services\" />
     <Folder Include="ClientApp\src\assets\bootstrap\" />
   </ItemGroup>
 

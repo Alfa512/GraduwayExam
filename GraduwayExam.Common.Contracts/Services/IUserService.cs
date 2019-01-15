@@ -7,9 +7,9 @@ namespace GraduwayExam.Common.Contracts.Services
 {
     public interface IUserService
     {
-        Task<User> AuthenticateAsync(string username, string password);
-        IEnumerable<User> GetAll();
-        User GetById(string id);
+        Task<UserVm> AuthenticateAsync(string username, string password);
+        IEnumerable<UserVm> GetAll();
+        UserVm GetById(string id);
         Task<UserVm> CreateAsync(UserVm user, string password);
         void UpdateAsync(UserVm user, string password = null);
         void Delete(string id);

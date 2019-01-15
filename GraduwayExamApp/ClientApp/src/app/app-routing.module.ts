@@ -6,6 +6,7 @@ import { AuthGuard } from './helpers/canActivateAuthGuard';
 import { LoginComponent } from './components/auth/login.component';
 
 import { LogoutComponent } from './components/auth/logout.component';
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

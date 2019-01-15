@@ -1,15 +1,24 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using GraduwayExam.Common.Contracts.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace GraduwayExam.Common.Services
 {
     public class ConfigurationService : IConfigurationService
     {
-        public string ConnectionString { get { return Path.Combine(_basePath, ConfigurationManager.AppSettings["RestorePasswordMailTemplate"]); } }
+        private IConfiguration _configuration;
 
-        private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
+        public ConfigurationService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
+        public string ConnectionString
+        {
+            get { return _configuration.GetValue<string>("ConnectionString"); }
+        }
+
+        //private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
     }
 }

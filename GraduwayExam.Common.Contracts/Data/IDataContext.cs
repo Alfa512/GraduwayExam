@@ -7,5 +7,6 @@ namespace GraduwayExam.Common.Contracts.Data
     {
         void Commit();
         IUserRepository Users { get; }
+        ITaskRepository Tasks { get; }
     }
 }

@@ -7,11 +7,16 @@ import { APP_BASE_HREF } from '@angular/common';
 
 // Components
 
-import { LoginComponent, LogoutComponent/*, ModalTemplateDirective*/ } from '@app/components';
+import { LoginComponent, LogoutComponent, DashboardComponent } from '@app/components';
 import { HeaderComponent, FooterComponent } from '@app/components';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Helpers } from './helpers/helpers';
+import { TokenService } from '@app/services/token.service';
+import { HttpClientModule, HttpClient, HttpHandler } from '@angular/common/http';
+import { AppConfig } from '@app/config/config';
+
 
 @NgModule({
   declarations: [
@@ -19,13 +24,23 @@ import { AppComponent } from './app.component';
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    DashboardComponent,
+   //Helpers
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
+    //Helpers
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '' }],
+  providers: [{ provide: APP_BASE_HREF, useValue: '' },
+    Helpers,
+    TokenService,
+    HttpClientModule,
+    HttpClient,
+    AppConfig
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

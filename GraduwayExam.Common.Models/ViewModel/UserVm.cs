@@ -10,5 +10,6 @@
         public string ConfirmPassword { get; set; }
         public string CurrentPassword { get; set; }
         public string Email { get; set; }
+        public string Position { get; set; }
     }
 }

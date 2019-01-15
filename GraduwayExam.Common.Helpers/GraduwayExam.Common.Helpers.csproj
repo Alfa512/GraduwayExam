@@ -11,6 +11,13 @@
   <ItemGroup>
     <ProjectReference Include="..\GraduwayExam.Common.Models\GraduwayExam.Common.Models.csproj" />
     <ProjectReference Include="..\GraduwayExam.Data.Model\GraduwayExam.Data.Models.csproj" />
+    <ProjectReference Include="..\GraduwayExam.Data\GraduwayExam.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>C:\Users\alfa5\.nuget\packages\microsoft.extensions.logging.abstractions\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

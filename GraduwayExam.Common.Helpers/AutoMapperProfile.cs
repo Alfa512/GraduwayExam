@@ -10,6 +10,8 @@ namespace GraduwayExam.Common.Helpers
         {
             CreateMap<User, UserVm>();
             CreateMap<UserVm, User>();
+            CreateMap<UserVm, LoginVm>();
+            CreateMap<LoginVm, UserVm>();
         }
     }
 }

@@ -4,27 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GraduwayExam.Common.Contracts.Data;
+using GraduwayExam.Common.Contracts.Repositories;
 using GraduwayExam.Common.Contracts.Services;
 using GraduwayExam.Common.Models.ViewModel;
 using GraduwayExam.Data.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace GraduwayExam.Common.Services
 {
     public class UserService : IUserService
     {
         private IDataContext _context;
-        private IMapper _mapper;
-        UserManager<User> _userManager;
+        //private IUserRepository _repository;
 
-        public UserService(IDataContext context, IMapper mapper, UserManager<User> userManager)
+        public UserService(IDataContext context/*, IUserRepository repository*/)
         {
             _context = context;
-            _mapper = mapper;
-            _userManager = userManager;
+            //_repository = repository;
+            //_userManager = userManager;
+            //_userManager = new UserManager<User>();
         }
 
-        public async Task<User> AuthenticateAsync(string username, string password)
+        public async Task<UserVm> AuthenticateAsync(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
@@ -33,33 +33,33 @@ namespace GraduwayExam.Common.Services
             if (user == null)
                 return null;
 
-            var res = await _userManager.CheckPasswordAsync(user, password);
+            //var res = await _repository.CheckPasswordAsync(user, password);
 
-            if (!res)
+            //if (!res)
                 return null;
 
-            return user;
+            return DomainToViewList(user);
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserVm> GetAll()
         {
-            return _context.Users.GetAll();
+            return DomainToViewList(_context.Users.GetAll().ToList());
         }
 
-        public User GetById(string id)
+        public UserVm GetById(string id)
         {
-            return _context.Users.GetAll().FirstOrDefault(u => u.Id == id);
+            return DomainToViewList(_context.Users.GetAll().FirstOrDefault(u => u.Id == id));
         }
 
         public async Task<UserVm> CreateAsync(UserVm userModel, string password)
         {
-            var user = _mapper.Map<User>(userModel);
+            var user = Mapper.Map<User>(userModel);
             // validation
             if (string.IsNullOrWhiteSpace(password))
                 throw new ApplicationException("Password is required");
 
-            var result = await _userManager.CreateAsync(user, userModel.Password);
-            if (result.Succeeded)
+            //var result = await _userManager.CreateAsync(user, userModel.Password);
+            //if (result.Succeeded)
             {
                 //await _userManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -71,7 +71,7 @@ namespace GraduwayExam.Common.Services
 
         public async void UpdateAsync(UserVm userParam, string password = null)
         {
-            var userModel = _mapper.Map<User>(userParam);
+            var userModel = Mapper.Map<User>(userParam);
 
             var user = _context.Users.GetAll().FirstOrDefault(u => u.Id == userModel.Id);
 
@@ -90,23 +90,62 @@ namespace GraduwayExam.Common.Services
 
             if (!string.IsNullOrWhiteSpace(password))
             {
-                await _userManager.ChangePasswordAsync(user, userParam.CurrentPassword, password);
+                //await _userManager.ChangePasswordAsync(user, userParam.CurrentPassword, password);
                 user = _context.Users.GetAll().FirstOrDefault(u => u.Id == userModel.Id);
             }
 
-            await _userManager.UpdateAsync(user);
+            //await _userManager.UpdateAsync(user);
             _context.Users.Update(user);
             _context.Commit();
         }
 
         public void Delete(string id)
         {
-            var user = GetAll().FirstOrDefault(u => u.Id == id);
+            var user = _context.Users.GetAll().FirstOrDefault(u => u.Id == id);
             if (user != null)
             {
                 _context.Users.Delete(user);
                 _context.Commit();
             }
+        }
+
+        public IEnumerable<UserVm> DomainToViewList(List<User> users)
+        {
+            var vUsers = new List<UserVm>();
+
+            if (users != null && users.Count > 0)
+            {
+                foreach (var user in users)
+                {
+                    vUsers.Add(Mapper.Map<UserVm>(user));
+                }
+            }
+
+            return vUsers;
+        }
+        public List<User> ViewToDomainList(List<UserVm> users)
+        {
+            var vUsers = new List<User>();
+
+            if (users != null && users.Count > 0)
+            {
+                foreach (var user in users)
+                {
+                    vUsers.Add(Mapper.Map<User>(user));
+                }
+            }
+
+            return vUsers;
+        }
+
+        public UserVm DomainToViewList(User user)
+        {
+            return Mapper.Map<UserVm>(user);
+        }
+
+        public User ViewToDomain(UserVm user)
+        {
+            return Mapper.Map<User>(user);
         }
     }
 }

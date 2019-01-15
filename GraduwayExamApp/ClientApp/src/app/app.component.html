@@ -12,9 +12,7 @@
               <!-- Block with Options Title -->
               <div class="block-title">
                 <div class="block-options pull-right">
-                  <a class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Post on Twitter"><i class="fa fa-twitter"></i></a>
-                  <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Settings"><i class="fa fa-cog"></i></a>
-                  <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
+                  <a (click)="click()" class="btn btn-alt btn-sm btn-default" title="Settings"><i class="fa fa-cog"></i></a>
                   <div class="btn-group btn-group-sm">
                     <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default dropdown-toggle enable-tooltip" data-toggle="dropdown" title="Options"><span class="caret"></span></a>
                     <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
@@ -30,9 +28,22 @@
                   </div>
                 </div>
                 <h2><strong>Employees</strong></h2>
+                <div class="row" style="padding-top: 10px">
+                  <div *ngFor="let user of users" class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+                    <a href="javascript:void(0)" class="widget widget-hover-effect1">
+                      <div class="widget-simple">
+                        <h3 class="widget-content text-right animation-pullDown">
+                          <strong>{{user.firstName}} {{user.lastName}}</strong><br>
+                          <small>{{user.position}}</small>
+                        </h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                
               </div>
-
-              <p>You can have a block with options to the top right..</p>
+              
+              <!--<p>You can have a block with options to the top right..</p>-->
 
             </div>
             <!-- END Block with Options -->
@@ -43,27 +54,24 @@
               <!-- Block with Options Left Title -->
               <div class="block-title clearfix">
                 <div class="block-options pull-left">
-                  <div class="btn-group btn-group-sm">
-                    <a href="javascript:void(0)" class="btn btn-alt btn-default dropdown-toggle enable-tooltip" data-toggle="dropdown" title="Options"><span class="caret"></span></a>
-                    <ul class="dropdown-menu dropdown-custom">
-                      <li>
-                        <a href="javascript:void(0)"><i class="gi gi-cloud pull-right"></i>Simple Action</a>
-                        <a href="javascript:void(0)"><i class="gi gi-airplane pull-right"></i>Another Action</a>
-                      </li>
-                      <li class="divider"></li>
-                      <li>
-                        <a href="javascript:void(0)"><i class="fa fa-wrench fa-fw pull-right"></i>Separated Action</a>
-                      </li>
-                    </ul>
-                  </div>
                   <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
                   <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Settings"><i class="fa fa-cog"></i></a>
-                  <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Post on Twitter"><i class="fa fa-twitter"></i></a>
                 </div>
                 <h2 class="pull-right"><strong>Tasks</strong></h2>
-              </div>
 
-              <p>...or to the top left!</p>
+                <div class="row" style="padding-top: 10px">
+                  <div *ngFor="let task of tasks" class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+                    <a href="javascript:void(0)" class="widget widget-hover-effect1">
+                      <div class="widget-simple">
+                        <h3 class="widget-content text-right animation-pullDown">
+                          <strong>{{task.name}}</strong><br>
+                          <small>{{task.description}}</small>
+                        </h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
