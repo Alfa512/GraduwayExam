@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraduwayExam.Common.Contracts.Data;
 using GraduwayExam.Common.Contracts.Repositories;
 using GraduwayExam.Common.Contracts.Services;
 using GraduwayExam.Common.Models.Enums;
@@ -11,7 +10,7 @@ using GraduwayExam.Data.Models;
 using GraduwayExam.Maps;
 
 namespace GraduwayExam.Common.Services
-{S
+{
     public class UserService : IUserService
     {
         private IUserRepository _repository;
