@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using GraduwayExam.Common.Contracts.Data;
 using GraduwayExam.Common.Contracts.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -7,9 +8,9 @@ namespace GraduwayExam.Data.Repositories
 {
     public abstract class GenericRepository<T> : IRepository<T> where T : class
     {
-        protected readonly ApplicationContext Context;
+        protected readonly IDataContext Context;
 
-        protected GenericRepository(ApplicationContext context)
+        protected GenericRepository(IDataContext context)
         {
             Context = context;
         }
@@ -34,13 +35,22 @@ namespace GraduwayExam.Data.Repositories
             }
 
             entry.State = EntityState.Modified;
-
             return entity;
         }
 
         public EntityEntry<T> Delete(T entity)
         {
             return Context.Set<T>().Remove(entity);
+        }
+
+        public void SaveCganges()
+        {
+            Context.SaveChanges();
+        }
+
+        public void SaveChangesAsync()
+        {
+            Context.SaveChangesAsync();
         }
     }
 }

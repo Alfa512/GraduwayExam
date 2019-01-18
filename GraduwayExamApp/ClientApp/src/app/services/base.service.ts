@@ -60,7 +60,7 @@ export class BaseService {
 
     
 
-        let header = new HttpHeaders({ 'Content-Type': 'application/json' });
+        let header = new HttpHeaders({ 'Content-Type': 'application/json', 'dataType': "json" });
 
     
 

@@ -26,28 +26,47 @@ export class TaskService extends BaseService {
 
   /** GET tasks from the server */
 
-  getTasks(): Observable<Task[]> {
+  getTasks(sort: number = null): Observable<Task[]> {
+    let orderBy = sort === null ? "" : "?orderby=" + sort;
+    return this.http.get<Task[]>(this.pathAPI + 'task/list' + orderBy, super.header()).pipe(
+      catchError(super.handleError));
 
-    return this.http.get<Task[]>(this.pathAPI + 'task/list', super.header()).pipe(
+  }
+
+  getTasksByUserId(userId: string): Observable<Task[]> {
+
+    return this.http.get<Task[]>(this.pathAPI + 'task/byuserid?userId=' + userId, super.header()).pipe(
       catchError(super.handleError));
 
   }
 
   createTask(task: Task) {
 
-    return this.http.post(this.pathAPI + 'create', task);
+    return this.http.post(this.pathAPI + 'task/create', task);
 
   }
 
   updateTask(task: Task) {
+    const data = {
+      //data: {
+        Id: task.id,
 
-    return this.http.post(this.pathAPI + 'update', task);
+        Title: task.title,
+        Description: task.description,
+        State: task.state,
+        Priority: task.priority,
+        UserId: task.userId,
+        CreatorId: task.creatorId
+      //}
+    };
+    //return this.http.get<Task>(this.pathAPI + 'task/update?task=' + '25', super.header()).pipe(catchError(super.handleError));
+    return this.http.post(this.pathAPI + 'task/update', task, super.header()); //{ headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }) }
 
   }
 
   deleteTask(taskId: string) {
 
-    return this.http.post(this.pathAPI + 'delete', taskId);
+    return this.http.post(this.pathAPI + 'task/delete', taskId);
 
   }
 }

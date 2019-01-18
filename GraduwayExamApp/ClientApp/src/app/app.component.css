@@ -1,0 +1,22 @@
+
+.custom-control-label {
+  font-weight: 600;
+  padding-top: 7px;
+  margin-bottom: 0;
+}
+
+.form-horizontal .custom-control-label {
+  margin-bottom: 5px;
+}
+
+.control-left {
+  text-align: left;
+  left: 0;
+  right: auto;
+}
+
+.control-right {
+  text-align: right;
+  right: 0;
+  left: auto;
+}

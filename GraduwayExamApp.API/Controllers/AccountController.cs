@@ -33,6 +33,7 @@ namespace GraduwayExamApp.API.Controllers
             }
         }*/
 
+        /**ToDo Not Implemented*/
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Authenticate([FromBody] UserVm userModel)
@@ -55,14 +56,7 @@ namespace GraduwayExamApp.API.Controllers
             });*/
         }
 
-        [AllowAnonymous]
-        public string Auth()
-        {
-
-            return "1234567";
-
-        }
-
+        /**ToDo Not Implemented*/
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserVm userModel)

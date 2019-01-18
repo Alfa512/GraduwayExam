@@ -28,13 +28,7 @@ namespace GraduwayExamApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationContext>();*/
             services.AddIdentity<IdentityUser, IdentityRole>()
-                // services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
 
@@ -70,22 +64,19 @@ namespace GraduwayExamApp.API
                 options.SlidingExpiration = true;
             });
 
-            /*services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://localhost:44393", "http://localhost:44393", "localhost:44393"));
-            });*/
 
             services.AddCors(o => o.AddPolicy("AllowSpecificOrigin", builder =>
             {
+#if DEBUG
                 builder.WithOrigins("https://localhost:44393", "http://localhost:44393", "localhost:44393")
+                                   .AllowAnyMethod()
+                                   .AllowAnyHeader();
+#else
+                builder.WithOrigins("https://graduway.azurewebsites.net", "http://graduway.azurewebsites.net", "graduway.azurewebsites.net")
                     .AllowAnyMethod()
                     .AllowAnyHeader();
-                /*builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();*/
+#endif
             }));
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddOptions();
             services.Configure<CookiePolicyOptions>(options =>
@@ -93,11 +84,14 @@ namespace GraduwayExamApp.API
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //Register services
+            services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IDataContext, ApplicationContext>();
 
+            //Register services
             ServiceModule.Register(services, Configuration);
         }
 
@@ -120,13 +114,8 @@ namespace GraduwayExamApp.API
                     }
                 }
 
-                /*9using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                    .CreateScope())
-                {
-                    serviceScope.ServiceProvider.GetService<ApplicationContext>().Database.Migrate();
-                }*/
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //ignore
             }
@@ -154,26 +143,6 @@ namespace GraduwayExamApp.API
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            /*app.UseCors(builder =>
-                builder.WithOrigins("https://localhost:44393", "http://localhost:44393"));*/
-
-            //app.UseCors("AllowSpecificOrigin");
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
-            /*app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });*/
         }
     }
 }

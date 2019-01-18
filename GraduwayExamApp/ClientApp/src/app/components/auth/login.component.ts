@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { Router } from '@angular/router';
 
 import { TokenService } from '@app/services/token.service';
 
 import { Helpers } from '@app/helpers/helpers';
+import './js/login.js';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,9 @@ import { Helpers } from '@app/helpers/helpers';
 
 export class LoginComponent implements OnInit {
 
-  constructor(private helpers: Helpers, private router: Router, private tokenService: TokenService) { }
+  constructor(private helpers: Helpers, private router: Router, private tokenService: TokenService) {
+
+  }
 
   ngOnInit() {
 

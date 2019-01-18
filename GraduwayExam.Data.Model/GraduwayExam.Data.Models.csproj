@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GraduwayExam.Common.Models\GraduwayExam.Common.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>C:\Users\alfa5\.nuget\packages\microsoft.aspnet.identity.core\2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>

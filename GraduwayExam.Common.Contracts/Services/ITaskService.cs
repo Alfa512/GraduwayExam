@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using GraduwayExam.Common.Models.Enums;
 using GraduwayExam.Common.Models.ViewModel;
 
 namespace GraduwayExam.Common.Contracts.Services
@@ -8,8 +8,14 @@ namespace GraduwayExam.Common.Contracts.Services
     {
         IEnumerable<TaskVm> GetAll();
         TaskVm GetById(string id);
-        Task<TaskVm> CreateAsync(TaskVm task, string password);
-        void UpdateAsync(TaskVm task, string password = null);
+        IEnumerable<TaskVm> GetByUserId(string userId);
+        TaskVm Create(TaskVm task);
+        TaskVm Update(TaskVm task);
         void Delete(string id);
+        IEnumerable<TaskVm> DomainToViewList(List<GraduwayExam.Data.Models.Task> tasks);
+        List<GraduwayExam.Data.Models.Task> ViewToDomainList(List<TaskVm> tasks);
+        TaskVm DomainToView(GraduwayExam.Data.Models.Task task);
+        GraduwayExam.Data.Models.Task ViewToDomain(TaskVm task);
+        IEnumerable<TaskVm> OrderTasks(List<TaskVm> tasks, OrderByTaskFilter filter);
     }
 }

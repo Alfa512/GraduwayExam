@@ -33,7 +33,8 @@
     <Folder Include="ClientApp\src\app\components\footer\" />
     <Folder Include="ClientApp\src\app\components\dashboard\" />
     <Folder Include="ClientApp\src\app\directives\" />
-    <Folder Include="ClientApp\src\app\layout\" />
+    <Folder Include="ClientApp\src\app\layout\shared\" />
+    <Folder Include="ClientApp\src\app\js\" />
     <Folder Include="ClientApp\src\assets\bootstrap\" />
   </ItemGroup>
 

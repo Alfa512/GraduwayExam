@@ -24,13 +24,18 @@
             ],
             "styles": [
               "src/assets/bootstrap/css/bootstrap.css",
+              "src/assets/bootstrap/css/bootstrap-select.css",
+              //"src/assets/bootstrap/css/bootstrap-theme.css",
               "src/assets/css/main.css",
+              //"src/app/app.component.css",
               "src/assets/css/plugins.css",
               "src/styles.css"
             ],
             "scripts": [
               "src/assets/js/jquery-3.3.1.min.js",
-              "src/assets/bootstrap/js/bootstrap.js"
+              "src/assets/bootstrap/js/bootstrap.js",
+              "src/assets/bootstrap/js/bootstrap-select/bootstrap-select.js"
+              //"src/assets/bootstrap/js/bootstrap.bundle-4.2.js"
             ]
           },
           "configurations": {
@@ -44,7 +49,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
+              "extractCss": false,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,

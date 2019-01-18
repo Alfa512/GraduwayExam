@@ -18,7 +18,5 @@ namespace GraduwayExam.Common.Services
         {
             get { return _configuration.GetValue<string>("ConnectionString"); }
         }
-
-        //private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
     }
 }

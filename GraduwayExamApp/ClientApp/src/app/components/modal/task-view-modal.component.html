@@ -1,0 +1,86 @@
+
+<div id="modal-task-view" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <!--<ng-template #isTaskSelected>-->
+  <div *ngIf="task" class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header text-left">
+        <h2 class="modal-title"><i class="fa fa-info"></i> {{ task !== null && task !== undefined ? task.title : ""}}</h2>
+      </div>
+      <!-- END Modal Header -->
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form action="" method="post" enctype="application/json" class="form-horizontal form-bordered" onsubmit="return false;">
+          <fieldset>
+            <div class="form-group">
+              <span class="custom-control text-left dropdown-menu-left">
+                <select class="btn" name="taskPriority" [(ngModel)]="taskPriority" data-show-icon="true">
+                  <option value="0">Highest</option>
+                  <option value="1">High</option>
+                  <option value="2">Medium</option>
+                  <option value="3">Low</option>
+                  <option value="4">Lowest</option>
+                  <option value="5">Forgettable</option>
+                </select>
+              </span>
+              <span class="custom-control text-right  dropdown-menu-right">
+                <select class="btn" name="taskState" [(ngModel)]="taskState" data-show-icon="true">
+                  <option value="0" data-content="<i class='fa fa-plus'></i>">New</option>
+                  <option value="1" data-subtext="<i class='fa fa-plus'></i>">Open</option>
+                  <option value="2">InProgress</option>
+                  <option value="3">Testing</option>
+                  <option value="4">Resolved</option>
+                  <option value="5">Closed</option>
+                  <option value="6">Reopened</option>
+                </select>
+              </span>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Description <a><i (click)="editDesc = !editDesc" class="fa fa-pencil switch"></i></a></legend>
+            <div class="form-group">
+              <div [hidden]="editDesc" class="col-md-12">
+                <p>{{task.description}}</p>
+              </div>
+              <div [hidden]="!editDesc" class="col-md-12">
+                <textarea rows="10" id="task-description" name="newdesc" class="form-control" [(ngModel)]="newdesc" value="{{task.description}}" placeholder="Enter description..."></textarea>
+                <a (click)="saveTaskChanges()" class="btn btn-info">Save</a>
+                <a (click)="editDesc = false" class="btn btn-danger">Cancel</a>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 col-lg-3 col-sm-4  custom-control-label control-left">Assignee</label>
+              <label class="col-md-9 col-lg-9 col-sm-8 custom-control-label control-left text-primary">{{assignee.firstName + " " + assignee.lastName}}</label>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 col-lg-3 col-sm-4  custom-control-label control-left">Created by</label>
+              <label class="col-md-9 col-lg-9 col-sm-8 custom-control-label control-left text-primary">{{creator.firstName + " " + creator.lastName}}</label>
+            </div>
+          </fieldset>
+          <!--<fieldset>
+            <legend>Password Update</legend>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="user-settings-password">New Password</label>
+              <div class="col-md-8">
+                <input type="password" id="user-settings-password" name="password" class="form-control" placeholder="Please choose a complex one..">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="user-settings-repassword">Confirm New Password</label>
+              <div class="col-md-8">
+                <input type="password" id="user-settings-repassword" name="user-settings-repassword" class="form-control" placeholder="..and confirm it!">
+              </div>
+            </div>
+          </fieldset>-->
+          <div class="form-group form-actions">
+            <div class="col-xs-12 text-right">
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+              <button (click)="saveTaskChanges()" class="btn btn-sm btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

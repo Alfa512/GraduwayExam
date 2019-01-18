@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
-
-//import { environment } from '../environments/environment';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components
 
 import { LoginComponent, LogoutComponent, DashboardComponent } from '@app/components';
 import { HeaderComponent, FooterComponent } from '@app/components';
+import { TaskViewModalComponent } from '@app/components/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,13 +25,14 @@ import { AppConfig } from '@app/config/config';
     LoginComponent,
     LogoutComponent,
     DashboardComponent,
-   //Helpers
+    TaskViewModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
-    //Helpers
+    HttpClientModule,
+    FormsModule,                               
+    ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '' },
     Helpers,

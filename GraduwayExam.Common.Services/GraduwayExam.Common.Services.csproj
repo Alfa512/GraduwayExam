@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GraduwayExam.Common.Contracts\GraduwayExam.Common.Contracts.csproj" />
     <ProjectReference Include="..\GraduwayExam.Common.Models\GraduwayExam.Common.Models.csproj" />
+    <ProjectReference Include="..\GraduwayExam.Maps\GraduwayExam.Maps.csproj" />
   </ItemGroup>
 
   <ItemGroup>

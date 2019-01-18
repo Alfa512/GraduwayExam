@@ -18,22 +18,16 @@ namespace GraduwayExam.Data
         {
             _configurationService = configurationService;
             Database.EnsureCreated();
-            //Database.
-            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configurationService.ConnectionString);
-            //optionsBuilder.
-
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            //builder.Conventions.Remove<PluralizingTableNameConvention>();
 
             #region OneToMany
 

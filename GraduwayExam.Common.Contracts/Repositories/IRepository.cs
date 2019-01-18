@@ -9,5 +9,7 @@ namespace GraduwayExam.Common.Contracts.Repositories
         EntityEntry<T> Create(T entity);
         T Update(T entity);
         EntityEntry<T> Delete(T entity);
+        void SaveCganges();
+        void SaveChangesAsync();
     }
 }
