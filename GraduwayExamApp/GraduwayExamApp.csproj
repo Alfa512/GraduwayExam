@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>435ff01a-3b22-478e-9249-53e7b88d5874</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,16 +27,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GraduwayExam.Common.Modules\GraduwayExam.Common.Modules.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="ClientApp\src\app\components\footer\" />
     <Folder Include="ClientApp\src\app\components\dashboard\" />
     <Folder Include="ClientApp\src\app\directives\" />
     <Folder Include="ClientApp\src\app\layout\shared\" />
     <Folder Include="ClientApp\src\app\js\" />
     <Folder Include="ClientApp\src\assets\bootstrap\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
