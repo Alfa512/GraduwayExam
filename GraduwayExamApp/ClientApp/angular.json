@@ -14,28 +14,28 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "index": "/src/index.html",
+            "main": "/src/main.ts",
+            "polyfills": "/src/polyfills.ts",
+            "tsConfig": "/src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/web.config"
+              "/src/favicon.ico",
+              "/src/assets",
+              "/src/web.config"
             ],
             "styles": [
-              "src/assets/bootstrap/css/bootstrap.css",
-              "src/assets/bootstrap/css/bootstrap-select.css",
+              "/src/assets/bootstrap/css/bootstrap.css",
+              "/src/assets/bootstrap/css/bootstrap-select.css",
               //"src/assets/bootstrap/css/bootstrap-theme.css",
-              "src/assets/css/main.css",
+              "/src/assets/css/main.css",
               //"src/app/app.component.css",
-              "src/assets/css/plugins.css",
-              "src/styles.css"
+              "/src/assets/css/plugins.css",
+              "/src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/jquery-3.3.1.min.js",
-              "src/assets/bootstrap/js/bootstrap.js",
-              "src/assets/bootstrap/js/bootstrap-select/bootstrap-select.js"
+              "/src/assets/js/jquery-3.3.1.min.js",
+              "/src/assets/bootstrap/js/bootstrap.js",
+              "/src/assets/bootstrap/js/bootstrap-select/bootstrap-select.js"
               //"src/assets/bootstrap/js/bootstrap.bundle-4.2.js"
             ]
           },
@@ -43,8 +43,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "/src/environments/environment.ts",
+                  "with": "/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
