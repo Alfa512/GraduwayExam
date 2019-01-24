@@ -3,8 +3,11 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TokenService } from '@app/services/token.service';
+import { UserService } from '@app/services/user.service';
 
 import { Helpers } from '@app/helpers/helpers';
+import { User } from '@app/models/user';
+
 import './js/login.js';
 
 @Component({
@@ -14,28 +17,62 @@ import './js/login.js';
 
 export class LoginComponent implements OnInit {
 
-  constructor(private helpers: Helpers, private router: Router, private tokenService: TokenService) {
+  constructor(private helpers: Helpers, private router: Router, private tokenService: TokenService, private userService: UserService) {
 
   }
 
+  user: User;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+
   ngOnInit() {
 
+  }
+
+  auth(authUser: User): void {
+    this.tokenService.auth(authUser).subscribe(token => {
+
+      this.helpers.setToken(token);
+
+    });
+    let error = this.tokenService.errorMessage;
+  }
 
 
+  logout(): void {
+    this.tokenService.logout();
   }
 
   login(): void {
 
-    let authValues = { "Username": "pablo", "Password": "secret" };
+    this.user = new User();
+    this.user.userName = this.userName;
+    this.user.password = this.password;
 
-    this.tokenService.auth(authValues).subscribe(token => {
-
-      this.helpers.setToken(token);
-
-      this.router.navigate(['/dashboard']);
-
-    });
+    this.auth(this.user);
 
   }
 
+  register(): void {
+
+    let user = new User();
+    user.firstName = this.firstName;
+    user.lastName = this.lastName;
+    user.userName = this.userName;
+    user.email = this.email;
+    user.password = this.password;
+    user.confirmPassword = this.confirmPassword;
+
+    this.userService.createUser(user).subscribe(user => {
+
+      this.user = user;
+      let authUser = user;
+      authUser.password = this.password;
+      this.auth(authUser);
+    });
+  }
 } 

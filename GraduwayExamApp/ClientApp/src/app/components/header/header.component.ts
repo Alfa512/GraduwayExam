@@ -13,4 +13,8 @@ export class HeaderComponent {
     this.authentication = helper.isAuthenticated();
   }
 
+  logout(): void {
+    this.helper.logout();
+  }
+
 }

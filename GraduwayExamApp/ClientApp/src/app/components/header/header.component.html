@@ -17,7 +17,7 @@
           </a>
         </li>
         <li *ngIf="authentication">
-          <a href="" data-toggle="modal" data-target="#login-modal">
+          <a href="javascript:void(0)" (click)="logout()">
             <i class="fa fa-sign-out fa-fw pull-right"></i>
             Logout
           </a>

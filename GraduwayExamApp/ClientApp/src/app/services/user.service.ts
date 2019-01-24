@@ -35,9 +35,10 @@ export class UserService extends BaseService {
       catchError(super.handleError));
   }
 
-  createUser(user: User) {
+  createUser(user: User): Observable<User> {
 
-    return this.http.post(this.pathAPI + 'user/create', user);
+    return this.http.post<User>(this.pathAPI + 'user/create', user).pipe(
+      catchError(super.handleError));
 
   }
 

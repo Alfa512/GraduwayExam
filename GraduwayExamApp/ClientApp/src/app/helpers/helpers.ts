@@ -18,7 +18,6 @@ export class Helpers {
 
   public isAuthenticated(): boolean {
 
-    return true;
     return (!(window.sessionStorage['token'] === undefined ||
 
       window.sessionStorage['token'] === null ||

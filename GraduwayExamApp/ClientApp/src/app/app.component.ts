@@ -46,7 +46,7 @@ export class AppComponent implements AfterViewInit {
       );
     this.loadUsers();
     this.loadTasks();
-    
+
   }
 
   title = 'Task board';
@@ -94,7 +94,7 @@ export class AppComponent implements AfterViewInit {
       .subscribe((data: User) => this.user = data);
 
     this.taskService.getTasksByUserId(userId).subscribe((data: Task[]) => {
-    this.tasks = data;
+      this.tasks = data;
       this.selectedTask = data[0];
       this.isTaskSelected = true;
     });

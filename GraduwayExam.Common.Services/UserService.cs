@@ -59,7 +59,7 @@ namespace GraduwayExam.Common.Services
             //if (!res)
                 return null;
 
-            return DomainToViewList(user);
+            return DomainToView(user);
         }
 
         public IEnumerable<UserVm> GetAll()
@@ -69,30 +69,40 @@ namespace GraduwayExam.Common.Services
 
         public UserVm GetById(string id)
         {
-            return DomainToViewList(_repository.GetAll().FirstOrDefault(u => u.Id == id));
+            return DomainToView(_repository.GetAll().FirstOrDefault(u => u.Id == id));
         }
 
-        /*ToDo Not Implemented*/
-        public async Task<UserVm> CreateAsync(UserVm userModel, string password)
+        public UserVm GetByUserName(string userName)
+        {
+            return DomainToView(_repository.GetAll().FirstOrDefault(u => string.Equals(u.UserName, userName, StringComparison.CurrentCultureIgnoreCase)));
+        }
+
+        public UserVm GetForAuth(string userName)
+        {
+            var user = _repository.GetAll().FirstOrDefault(u => string.Equals(u.UserName, userName, StringComparison.CurrentCultureIgnoreCase));
+            if (user == null)
+                return null;
+            var vUser = DomainToView(user);
+            vUser.Password = user.PasswordHash;
+            return vUser;
+        }
+
+        public UserVm Create(UserVm userModel, string passwordHash)
         {
             var user = UserMapper.Mapper().Map<User>(userModel);
-            // validation
-            if (string.IsNullOrWhiteSpace(password))
-                throw new ApplicationException("Password is required");
-
-            //var result = await _userManager.CreateAsync(user, userModel.Password);
-            //if (result.Succeeded)
+            user.PasswordHash = passwordHash;
+            var result = _repository.Create(user);
+            _repository.SaveCganges();
+            if (!string.IsNullOrEmpty(result.Entity.Id))
             {
-                //await _userManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                return userModel;
+                return DomainToView(result.Entity);
             }
 
             return null;
         }
 
         /*ToDo Not Implemented*/
-        public async Task<UserVm> UpdateAsync(UserVm userParam, string password = null)
+        public UserVm Update(UserVm userParam, string password = null)
         {
             var userModel = UserMapper.Mapper().Map<User>(userParam);
 
@@ -132,7 +142,7 @@ namespace GraduwayExam.Common.Services
             }
         }
 
-        public IEnumerable<UserVm> DomainToViewList(List<User> users)
+        private IEnumerable<UserVm> DomainToViewList(List<User> users)
         {
             var vUsers = new List<UserVm>();
 
@@ -146,7 +156,7 @@ namespace GraduwayExam.Common.Services
 
             return vUsers;
         }
-        public List<User> ViewToDomainList(List<UserVm> users)
+        private List<User> ViewToDomainList(List<UserVm> users)
         {
             var vUsers = new List<User>();
 
@@ -161,12 +171,12 @@ namespace GraduwayExam.Common.Services
             return vUsers;
         }
 
-        public UserVm DomainToViewList(User user)
+        private UserVm DomainToView(User user)
         {
             return UserMapper.Mapper().Map<UserVm>(user);
         }
 
-        public User ViewToDomain(UserVm user)
+        private User ViewToDomain(UserVm user)
         {
             return UserMapper.Mapper().Map<User>(user);
         }

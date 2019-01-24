@@ -49,9 +49,6 @@ export class BaseService {
         console.error(errMsg);
 
         return Observable.throw(errMsg);
-
-      
-
     }
 
     
@@ -84,6 +81,11 @@ export class BaseService {
 
         this.helper.setToken(data);
 
+      }
+
+      public logout() {
+
+        this.helper.logout();
       }
 
       public failToken(error: Response | any) {

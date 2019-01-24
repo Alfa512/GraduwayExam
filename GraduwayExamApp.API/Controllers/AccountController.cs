@@ -67,7 +67,7 @@ namespace GraduwayExamApp.API.Controllers
             try
             {
                 // save 
-                _userService.CreateAsync(userModel, userModel.Password);
+                _userService.Create(userModel, userModel.Password);
                 return Ok();
             }
             catch (ApplicationException ex)

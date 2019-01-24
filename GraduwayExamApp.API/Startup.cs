@@ -4,7 +4,9 @@ using GraduwayExam.Common.Contracts.Repositories;
 using GraduwayExam.Common.Modules;
 using GraduwayExam.Common.Services;
 using GraduwayExam.Data;
+using GraduwayExam.Data.Models;
 using GraduwayExam.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GraduwayExamApp.API
 {
@@ -28,6 +31,30 @@ namespace GraduwayExamApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOptions.ISSUER,
+
+
+                        ValidAudience = AuthOptions.AUDIENCE,
+#if DEBUG
+                        ValidateAudience = false,
+                        ValidateLifetime = false,
+
+#else
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+#endif
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
+
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();

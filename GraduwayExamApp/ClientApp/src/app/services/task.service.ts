@@ -43,25 +43,11 @@ export class TaskService extends BaseService {
   createTask(task: Task) {
 
     return this.http.post(this.pathAPI + 'task/create', task);
-
   }
 
   updateTask(task: Task) {
-    const data = {
-      //data: {
-        Id: task.id,
 
-        Title: task.title,
-        Description: task.description,
-        State: task.state,
-        Priority: task.priority,
-        UserId: task.userId,
-        CreatorId: task.creatorId
-      //}
-    };
-    //return this.http.get<Task>(this.pathAPI + 'task/update?task=' + '25', super.header()).pipe(catchError(super.handleError));
-    return this.http.post(this.pathAPI + 'task/update', task, super.header()); //{ headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }) }
-
+    return this.http.post(this.pathAPI + 'task/update', task, super.header());
   }
 
   deleteTask(taskId: string) {

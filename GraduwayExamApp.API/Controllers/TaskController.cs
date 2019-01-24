@@ -46,7 +46,7 @@ namespace GraduwayExamApp.API.Controllers
             return tasks;
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost]
         [Route("create")]
         public TaskVm Create([FromBody]TaskVm task)

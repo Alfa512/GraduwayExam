@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using GraduwayExam.Common.Models.Enums;
 using GraduwayExam.Common.Models.ViewModel;
-using GraduwayExam.Data.Models;
 
 namespace GraduwayExam.Common.Contracts.Services
 {
@@ -11,8 +10,10 @@ namespace GraduwayExam.Common.Contracts.Services
         Task<UserVm> AuthenticateAsync(string username, string password);
         IEnumerable<UserVm> GetAll();
         UserVm GetById(string id);
-        Task<UserVm> CreateAsync(UserVm user, string password);
-        Task<UserVm> UpdateAsync(UserVm user, string password = null);
+        UserVm GetByUserName(string userName);
+        UserVm GetForAuth(string userName);
+        UserVm Create(UserVm user, string password);
+        UserVm Update(UserVm user, string password = null);
         void Delete(string id);
         IEnumerable<UserVm> OrderUsers(List<UserVm> users, OrderByUserFilter filter);
     }

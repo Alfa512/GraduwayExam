@@ -49,7 +49,7 @@
                   <a (click)="loadTasks()" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh"></i></a>
                   <div class="btn-group btn-group-sm">
                     <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default dropdown-toggle enable-tooltip" data-toggle="dropdown" title="Sort"><span class="fa fa-sort"></span></a>
-                    <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                    <ul class="dropdown-menu dropdown-custom dropdown-menu-left">
                       <li>
                         <a (click)="updateTasks(0)"><i class="gi gi-sort-by-alphabet pull-right"></i>Order by <strong>Title</strong> Asc</a>
                         <a (click)="updateTasks(1)"><i class="gi gi-sort-by-alphabet-alt pull-right"></i>Order by <strong>Title</strong> Desc</a>
@@ -67,7 +67,7 @@
                 </div>
                 <h2 class="pull-right"><strong>Tasks</strong></h2>
 
-                <div class="row" style="padding-top: 10px">
+                <div class="row" style="padding-top: 40px">
                   <div href="#modal-task-view" data-toggle="modal" *ngFor="let task of tasks" class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
                     <a (click)="selectTask(task.id)" class="widget widget-hover-effect1">
                       <div class="widget-simple">

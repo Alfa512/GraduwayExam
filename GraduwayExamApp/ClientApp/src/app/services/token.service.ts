@@ -17,6 +17,8 @@ import { Token } from '../models/token';
 
 import { Helpers } from '../helpers/helpers';
 
+import { User } from '../models/user';
+
 @Injectable()
 
 export class TokenService extends BaseService {
@@ -27,20 +29,22 @@ export class TokenService extends BaseService {
 
   constructor(private http: HttpClient, private config: AppConfig, helper: Helpers) { super(helper); }
 
-  auth(data: any): any {
+  auth(data: User): any {
 
-    let body = JSON.stringify(data);
+    return this.getToken(data);
+  }
 
-    return this.getToken(body);
+  logout(): any {
+
+    super.logout();
 
   }
 
-  private getToken(body: any): Observable<any> {
+  private getToken(body: User): Observable<any> {
 
-    return this.http.post<any>(this.pathAPI + 'token', body, super.header()).pipe(
+    return this.http.post<any>(this.pathAPI + 'token/token', body).pipe(
 
       catchError(super.handleError)
-
     );
 
   }
