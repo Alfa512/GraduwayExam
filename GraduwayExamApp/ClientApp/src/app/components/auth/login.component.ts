@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 
-import { Router } from '@angular/router';
 
 import { TokenService } from '@app/services/token.service';
 import { UserService } from '@app/services/user.service';
@@ -12,12 +11,13 @@ import './js/login.js';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
 })
+  
 
 export class LoginComponent implements OnInit {
 
-  constructor(private helpers: Helpers, private router: Router, private tokenService: TokenService, private userService: UserService) {
+  constructor(private helpers: Helpers, private tokenService: TokenService, private userService: UserService) {
 
   }
 
@@ -33,15 +33,23 @@ export class LoginComponent implements OnInit {
 
   }
 
+
+  openDialog() {
+
+  }
+
+  close() {
+    let modalCloseButton: HTMLElement = document.getElementById('auth-modal-close') as HTMLElement;
+    modalCloseButton.click();
+  }
+
   auth(authUser: User): void {
     this.tokenService.auth(authUser).subscribe(token => {
 
       this.helpers.setToken(token);
-
+      this.close();
     });
-    let error = this.tokenService.errorMessage;
   }
-
 
   logout(): void {
     this.tokenService.logout();
@@ -54,7 +62,6 @@ export class LoginComponent implements OnInit {
     this.user.password = this.password;
 
     this.auth(this.user);
-
   }
 
   register(): void {

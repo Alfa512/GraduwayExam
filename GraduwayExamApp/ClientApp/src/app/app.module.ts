@@ -13,7 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Helpers } from './helpers/helpers';
 import { TokenService } from '@app/services/token.service';
-import { HttpClientModule, HttpClient, HttpHandler } from '@angular/common/http';
+import { UserService } from '@app/services/user.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppConfig } from '@app/config/config';
 
 
@@ -31,11 +32,12 @@ import { AppConfig } from '@app/config/config';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,                               
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '' },
     Helpers,
+    UserService,
     TokenService,
     HttpClientModule,
     HttpClient,

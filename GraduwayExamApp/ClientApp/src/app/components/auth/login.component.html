@@ -1,4 +1,5 @@
-<div id="login-modal" class="modal" tabindex="-1" role="dialog">
+<div id="loginModal" class="modal" role="dialog" tabindex="-1" #loginModal>
+  <button id="auth-modal-close" type="button" class="hidden" data-dismiss="modal" data-target="#loginModal" #authModalClose></button>
   <div id="login-container" class="animation-fadeIn">
     <div class="login-title text-center">
       <h1><i class="gi gi-flash"></i> <strong>ALFA </strong>Simple CRUD App<br><small>Please <strong>Login</strong> or <strong>Register</strong></small></h1>
@@ -116,7 +117,5 @@
       </form>
     </div>
   </div>
-  <script>
-    
-  </script>
 </div>
+

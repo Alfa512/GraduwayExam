@@ -7,8 +7,6 @@ import { User } from "@app/models/user";
 import { Task } from "@app/models/task";
 import { UserService } from "@app/services/user.service";
 import { TaskService } from "@app/services/task.service";
-//import './js/plugins.js';
-//import './js/app.js';
 
 
 

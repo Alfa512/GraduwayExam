@@ -18,15 +18,15 @@ export class Helpers {
 
   public isAuthenticated(): boolean {
 
-    return (!(window.sessionStorage['token'] === undefined ||
+    return (!(window.localStorage['token'] === undefined ||
 
-      window.sessionStorage['token'] === null ||
+      window.localStorage['token'] === null ||
 
-      window.sessionStorage['token'] === 'null' ||
+      window.localStorage['token'] === 'null' ||
 
-      window.sessionStorage['token'] === 'undefined' ||
+      window.localStorage['token'] === 'undefined' ||
 
-      window.sessionStorage['token'] === ''));
+      window.localStorage['token'] === ''));
 
   }
 
@@ -38,21 +38,21 @@ export class Helpers {
 
   public getToken(): any {
 
-    if (window.sessionStorage['token'] === undefined ||
+    if (window.localStorage['token'] === undefined ||
 
-      window.sessionStorage['token'] === null ||
+      window.localStorage['token'] === null ||
 
-      window.sessionStorage['token'] === 'null' ||
+      window.localStorage['token'] === 'null' ||
 
-      window.sessionStorage['token'] === 'undefined' ||
+      window.localStorage['token'] === 'undefined' ||
 
-      window.sessionStorage['token'] === '') {
+      window.localStorage['token'] === '') {
 
       return '';
 
     }
 
-    let obj = JSON.parse(window.sessionStorage['token']);
+    let obj = JSON.parse(window.localStorage['token']);
 
     return obj.token;
 
@@ -78,7 +78,7 @@ export class Helpers {
 
   private setStorageToken(value: any): void {
 
-    window.sessionStorage['token'] = value;
+    window.localStorage['token'] = value;
 
     this.authenticationChanged.next(this.isAuthenticated());
 
