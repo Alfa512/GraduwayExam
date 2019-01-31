@@ -2,12 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 // Components
 
 import { LoginComponent, LogoutComponent, DashboardComponent } from '@app/components';
 import { HeaderComponent, FooterComponent } from '@app/components';
-import { TaskViewModalComponent } from '@app/components/modal';
+import { TaskViewModalComponent, AddTaskModalComponent } from '@app/components/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,7 +27,8 @@ import { AppConfig } from '@app/config/config';
     LoginComponent,
     LogoutComponent,
     DashboardComponent,
-    TaskViewModalComponent
+    TaskViewModalComponent,
+    AddTaskModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { AppConfig } from '@app/config/config';
     TokenService,
     HttpClientModule,
     HttpClient,
-    AppConfig
+    AppConfig,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

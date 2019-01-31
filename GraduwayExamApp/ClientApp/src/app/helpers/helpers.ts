@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable()
@@ -10,7 +11,7 @@ export class Helpers {
 
   private authenticationChanged = new Subject<boolean>();
 
-  constructor() {
+  constructor(private cookieService: CookieService) {
 
 
 
@@ -18,7 +19,7 @@ export class Helpers {
 
   public isAuthenticated(): boolean {
 
-    return (!(window.localStorage['token'] === undefined ||
+    /*return (!(window.localStorage['token'] === undefined ||
 
       window.localStorage['token'] === null ||
 
@@ -26,7 +27,8 @@ export class Helpers {
 
       window.localStorage['token'] === 'undefined' ||
 
-      window.localStorage['token'] === ''));
+      window.localStorage['token'] === ''));*/
+    return (!this.isTokenNullOrEmpty());
 
   }
 
@@ -38,7 +40,7 @@ export class Helpers {
 
   public getToken(): any {
 
-    if (window.localStorage['token'] === undefined ||
+    /*if (window.localStorage['token'] === undefined ||
 
       window.localStorage['token'] === null ||
 
@@ -50,18 +52,30 @@ export class Helpers {
 
       return '';
 
+    }*/
+    if (this.isTokenNullOrEmpty()) {
+
+      return '';
     }
 
-    let obj = JSON.parse(window.localStorage['token']);
+    let obj = JSON.parse(this.cookieService.get('token'));
+    //let obj = JSON.parse(window.localStorage['token']);
 
-    return obj.token;
+    return obj.access_token;
 
+  }
+
+  private isTokenNullOrEmpty(): boolean {
+    let token = this.cookieService.get('token');
+    return (token === undefined || token === null ||
+      token === 'null' || token === 'undefined' || token === '');
   }
 
   public setToken(data: any): void {
 
-    this.setStorageToken(JSON.stringify(data));
-
+    this.cookieService.set('token', JSON.stringify(data));
+    //this.setStorageToken(JSON.stringify(data));
+    this.authenticationChanged.next(this.isAuthenticated());
   }
 
   public failToken(): void {
@@ -78,7 +92,8 @@ export class Helpers {
 
   private setStorageToken(value: any): void {
 
-    window.localStorage['token'] = value;
+    //window.localStorage['token'] = value;
+    this.cookieService.set('token', value);
 
     this.authenticationChanged.next(this.isAuthenticated());
 

@@ -14,10 +14,14 @@ namespace GraduwayExam.Common.Services
     public class TaskService : ITaskService
     {
         private ITaskRepository _repository;
+        private IUserRepository _userRepository;
+        private IUserService _userService;
 
-        public TaskService(ITaskRepository repository)
+        public TaskService(ITaskRepository repository, IUserRepository userRepository, IUserService userService)
         {
             _repository = repository;
+            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public IEnumerable<TaskVm> GetAll()
@@ -51,9 +55,9 @@ namespace GraduwayExam.Common.Services
                     return tasks.OrderByDescending(t => t.State);
 
                 default:
-                {
-                    return tasks.OrderBy(t => t.Priority);
-                } 
+                    {
+                        return tasks.OrderBy(t => t.Priority);
+                    }
             }
         }
 
@@ -67,12 +71,20 @@ namespace GraduwayExam.Common.Services
             return DomainToViewList(_repository.GetAll().Where(t => t.UserId == userId).ToList());
         }
 
-        public TaskVm Create(TaskVm taskModel)
+        public TaskVm Create(TaskVm taskModel, string userName = null)
         {
             var task = TaskMapper.Mapper().Map<Task>(taskModel);
-
+            User creator = null;
+            if (!string.IsNullOrEmpty(taskModel.CreatorId))
+                creator = _userRepository.GetAll().FirstOrDefault(u => u.Id == taskModel.CreatorId);
+            if (creator == null && !string.IsNullOrEmpty(userName))
+                creator = _userRepository.GetAll().FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower());
+            if (creator == null)
+                return null;
+            task.CreatorId = creator.Id;
+            task.Date = DateTime.Now;
             taskModel = DomainToView(_repository.Create(task).Entity);
-
+            _repository.SaveCganges();
             return taskModel;
         }
 

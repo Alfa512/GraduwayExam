@@ -4,10 +4,11 @@ using System.Linq;
 using GraduwayExam.Common.Contracts.Services;
 using GraduwayExam.Common.Models.Enums;
 using GraduwayExam.Common.Models.ViewModel;
+using GraduwayExamApp.API.Attributes;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 namespace GraduwayExamApp.API.Controllers
 {
@@ -46,16 +47,20 @@ namespace GraduwayExamApp.API.Controllers
             return tasks;
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes =
+            JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorized]
         [HttpPost]
         [Route("create")]
         public TaskVm Create([FromBody]TaskVm task)
         {
-            var mTask = _taskService.Create(task);
+            var userName = HttpContext.User.Identity.Name;
+            var mTask = _taskService.Create(task, userName);
             return mTask;
         }
 
-        [AllowAnonymous]
+        [Authorize(AuthenticationSchemes = 
+            JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("update")]
         public TaskVm Update([FromBody]TaskVm task)
@@ -64,14 +69,17 @@ namespace GraduwayExamApp.API.Controllers
             return mTask;
         }
 
-        [AllowAnonymous]
+        [Authorize(AuthenticationSchemes =
+            JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("delete")]
-        public bool Delete([FromBody]string taskId)
+        public bool Delete([FromBody]TaskVm task)
         {
             try
             {
-                _taskService.Delete(taskId);
+                if (string.IsNullOrEmpty(task.Id))
+                    return false;
+                _taskService.Delete(task.Id);
                 return true;
             }
             catch (Exception)

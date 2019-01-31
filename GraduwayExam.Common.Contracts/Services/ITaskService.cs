@@ -9,7 +9,7 @@ namespace GraduwayExam.Common.Contracts.Services
         IEnumerable<TaskVm> GetAll();
         TaskVm GetById(string id);
         IEnumerable<TaskVm> GetByUserId(string userId);
-        TaskVm Create(TaskVm task);
+        TaskVm Create(TaskVm task, string userName = null);
         TaskVm Update(TaskVm task);
         void Delete(string id);
         IEnumerable<TaskVm> DomainToViewList(List<GraduwayExam.Data.Models.Task> tasks);

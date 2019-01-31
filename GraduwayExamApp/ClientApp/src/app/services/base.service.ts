@@ -63,7 +63,7 @@ export class BaseService {
 
         if(this.helper.isAuthenticated()) {
 
-          header = header.append('Authorization', 'Bearer ' + this.helper.getToken()); 
+          header = header.append('Authorization', "Bearer " + this.helper.getToken()); 
 
         }
 

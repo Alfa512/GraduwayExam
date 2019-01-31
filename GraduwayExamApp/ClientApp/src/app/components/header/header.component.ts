@@ -11,6 +11,7 @@ export class HeaderComponent {
   authentication: boolean;
 
   constructor(private helper: Helpers) {
+    this.authentication = helper.isAuthenticated();
     helper.isAuthenticationChanged().subscribe(data => {
       this.authentication = data;
 

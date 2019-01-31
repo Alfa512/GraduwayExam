@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Helpers } from "@app/helpers/helpers";
-import { Subscription } from "rxjs";
+import { Subscription, Subject } from "rxjs";
 import { startWith, delay } from 'rxjs/operators';
 import { User } from "@app/models/user";
 import { Task } from "@app/models/task";
@@ -41,7 +41,11 @@ export class AppComponent implements AfterViewInit {
       startWith(this.helpers.isAuthenticated()),
       delay(0)).subscribe((value) =>
         this.authentication = value
-      );
+    );
+    this.taskService.isTaskListChanged$.subscribe((data) => {
+        this.loadTasks();
+      }
+    );
     this.loadUsers();
     this.loadTasks();
 
@@ -101,6 +105,15 @@ export class AppComponent implements AfterViewInit {
   selectTask(id: string) {
     this.selectedTask = this.tasks.find(t => t.id === id);
     this.isTaskSelected = true;
+  }
+
+  deleteTask(id: string) {
+    let task = this.tasks.find(t => t.id === id);
+    this.taskService.deleteTask(task).subscribe((res: boolean) => {
+      if (res) {
+        this.loadTasks();
+      }
+    });
   }
 
   save() {
