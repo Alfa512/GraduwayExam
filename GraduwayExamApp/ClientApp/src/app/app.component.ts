@@ -7,6 +7,7 @@ import { User } from "@app/models/user";
 import { Task } from "@app/models/task";
 import { UserService } from "@app/services/user.service";
 import { TaskService } from "@app/services/task.service";
+import { TokenService } from "@app/services/token.service";
 
 
 
@@ -15,7 +16,7 @@ import { TaskService } from "@app/services/task.service";
   styleUrls: ['./app.component.css'],
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
-  providers: [UserService, TaskService]
+  providers: [UserService, TaskService, TokenService]
 
 })
 export class AppComponent implements AfterViewInit {
@@ -31,14 +32,14 @@ export class AppComponent implements AfterViewInit {
   tableMode: boolean = true;
   format: string = "dd/MM/yyyy h:mma";
 
-  constructor(private helpers: Helpers, private userService: UserService, private taskService: TaskService) {
+  constructor(private helpers: Helpers, private userService: UserService, private taskService: TaskService, private tokenService: TokenService) {
 
   }
 
   ngAfterViewInit() {
 
     this.subscription = this.helpers.isAuthenticationChanged().pipe(
-      startWith(this.helpers.isAuthenticated()),
+      startWith(this.tokenService.isAuthenticated()),
       delay(0)).subscribe((value) =>
         this.authentication = value
     );

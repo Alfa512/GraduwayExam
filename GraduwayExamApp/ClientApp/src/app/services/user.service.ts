@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -13,16 +13,12 @@ import { BaseService } from './base.service';
 
 import { User } from '../models/user';
 
-import { AppConfig } from '../config/config';
-
 import { Helpers } from '../helpers/helpers';
 
 @Injectable()
 export class UserService extends BaseService {
 
-  private pathAPI = this.config.setting['PathAPI'];
-
-  constructor(private http: HttpClient, private config: AppConfig, helper: Helpers) { super(helper); }
+  constructor(http: HttpClient, helper: Helpers) { super(http, helper); }
 
   getUsers(sort: number = null): Observable<User[]> {
     let orderBy = sort === null ? "" : "?orderby=" + sort;

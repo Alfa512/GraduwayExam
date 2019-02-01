@@ -20,12 +20,10 @@ import { Helpers } from '../helpers/helpers';
 @Injectable()
 export class TaskService extends BaseService {
 
-  private pathAPI = this.config.setting['PathAPI'];
   public taskListChanged = new Subject<boolean>();
   private _taskListChanged: boolean = false;
 
-
-  constructor(private http: HttpClient, private config: AppConfig, helper: Helpers) { super(helper); }
+  constructor(http: HttpClient, helper: Helpers) { super(http, helper); }
 
   isTaskListChanged$ = this.taskListChanged.asObservable();
   

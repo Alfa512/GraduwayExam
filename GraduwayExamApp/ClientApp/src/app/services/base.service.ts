@@ -8,94 +8,95 @@ import { of } from 'rxjs';
 
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Helpers } from '@app/helpers/helpers';
+import { Helpers } from "@app/helpers/helpers";
+
+import { AppConfig } from '../config/config';
+
+import {User} from "@app/models/user";
 
 @Injectable()
 
 export class BaseService {
 
-    constructor(private helper: Helpers) { }
+  public config: AppConfig = new AppConfig();
 
-    public extractData(res: Response) {
+  public  pathAPI = this.config.setting['PathAPI'];
 
-        let body = res.json();
+  constructor(protected http: HttpClient, private helper: Helpers) { }
 
-        return body || {};
 
-      }
+  public extractData(res: Response) {
 
-    
+    let body = res.json();
 
-      public handleError(error: Response | any) {
+    return body || {};
 
-        // In a real-world app, we might use a remote logging infrastructure
+  }
 
-        let errMsg: string;
 
-        if (error instanceof Response) {
 
-          const body = error.json() || '';
+  public handleError(error: Response | any) {
 
-          const err = body || JSON.stringify(body);
+    let errMsg: string;
 
-          errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    if (error instanceof Response) {
 
-        } else {
+      const body = error.json() || '';
 
-          errMsg = error.message ? error.message : error.toString();
+      const err = body || JSON.stringify(body);
 
-        }
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
 
-        console.error(errMsg);
+    } else {
 
-        return Observable.throw(errMsg);
+      errMsg = error.message ? error.message : error.toString();
     }
 
-    
+    console.error(errMsg);
 
-      public header() {
+    return Observable.throw(errMsg);
+  }
 
-    
 
-        let header = new HttpHeaders({ 'Content-Type': 'application/json', 'dataType': "json" });
+  public header() {
+    let header = new HttpHeaders({ 'Content-Type': 'application/json', 'dataType': "json" });
 
-    
+    header = header.append('Authorization', "Bearer " + this.helper.getToken());
+    return { headers: header };
+  }
 
-        if(this.helper.isAuthenticated()) {
+  public isAuthenticated(): boolean {
+    this.checkAuthentication();
+    return (!this.helper.isTokenNullOrEmpty());
+  }
 
-          header = header.append('Authorization', "Bearer " + this.helper.getToken()); 
+  private checkAuthentication() {
 
-        }
+    this.updateToken().subscribe((data: any) => {
+      this.helper.setToken(data);
+    });
+  }
 
-    
+  public setToken(data: any) {
 
-        return { headers: header };
+    this.helper.setToken(data);
+  }
 
-      }
+  private updateToken(body: User = null): Observable<any> {
+    return this.http.post<any>(this.pathAPI + 'token/validate', body, this.header()).pipe(
+      catchError(this.handleError)
+    );
+  }
 
-    
+  public logout() {
 
-      public setToken(data:any) {
+    this.helper.logout();
+  }
 
-    
+  public failToken(error: Response | any) {
 
-        this.helper.setToken(data);
+    this.helper.failToken();
+    return this.handleError(Response);
+  }
 
-      }
-
-      public logout() {
-
-        this.helper.logout();
-      }
-
-      public failToken(error: Response | any) {
-
-    
-
-        this.helper.failToken();
-
-        return this.handleError(Response);
-
-      }
-
- }
+}

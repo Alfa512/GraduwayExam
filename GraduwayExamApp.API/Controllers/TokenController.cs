@@ -1,6 +1,7 @@
 ﻿using GraduwayExam.Common.Contracts.Services;
 using GraduwayExam.Common.Models.ViewModel;
 using GraduwayExamApp.API.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,24 @@ namespace GraduwayExamApp.API.Controllers
             {
                 access_token = encodedJwt,
                 username = userData.Username
+            };
+
+            Response.ContentType = "application/json";
+            await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
+        }
+
+        [Authorize(AuthenticationSchemes =
+            JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost("validate")]
+        public async Task ValidateToken()
+        {
+            var userName = HttpContext.User.Identity.Name;
+            var encodedJwt = _tokenManager.UpdateToken(userName);
+
+            var response = new
+            {
+                access_token = encodedJwt,
+                username = userName
             };
 
             Response.ContentType = "application/json";

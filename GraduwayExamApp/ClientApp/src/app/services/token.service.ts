@@ -1,15 +1,13 @@
 
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
 import { of } from 'rxjs';
 
 import { catchError, map, tap } from 'rxjs/operators';
-
-import { AppConfig } from '../config/config';
 
 import { BaseService } from './base.service';
 
@@ -23,11 +21,10 @@ import { User } from '../models/user';
 
 export class TokenService extends BaseService {
 
-  private pathAPI = this.config.setting['PathAPI'];
 
   public errorMessage: string;
 
-  constructor(private http: HttpClient, private config: AppConfig, helper: Helpers) { super(helper); }
+  constructor(http: HttpClient, helper: Helpers) { super(http, helper); }
 
   auth(data: User): any {
 
@@ -48,5 +45,4 @@ export class TokenService extends BaseService {
     );
 
   }
-
 }

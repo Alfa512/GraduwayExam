@@ -28,6 +28,13 @@ namespace GraduwayExamApp.API.Security
             return GetJwt(identity);
         }
 
+        public string UpdateToken(string username)
+        {
+            var identity = GetClaimsIdentity(username);
+
+            return GetJwt(identity);
+        }
+
         public string GetJwt(ClaimsIdentity identity)
         {
             var now = DateTime.UtcNow;
