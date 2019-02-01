@@ -11,20 +11,16 @@ export class Helpers {
 
   private authenticationChanged = new Subject<boolean>();
 
-  constructor(private cookieService: CookieService) {
-
-  }
+  constructor(private cookieService: CookieService) {}
 
   public isAuthenticationChanged(): any {
 
     return this.authenticationChanged.asObservable();
-
   }
 
   public toggleAuthentication(data: boolean) {
 
     this.authenticationChanged.next(data);
-
   }
 
   public getToken(): any {

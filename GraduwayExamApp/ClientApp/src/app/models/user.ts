@@ -1,6 +1,4 @@
-
 export class User {
-
   id: string;
   userName: string;
   firstName: string;
@@ -9,5 +7,4 @@ export class User {
   confirmPassword: string;
   email: string;
   position: string;
-
 }

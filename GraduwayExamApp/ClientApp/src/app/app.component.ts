@@ -3,12 +3,12 @@ import { AfterViewInit } from '@angular/core';
 import { Helpers } from "@app/helpers/helpers";
 import { Subscription, Subject } from "rxjs";
 import { startWith, delay } from 'rxjs/operators';
+
 import { User } from "@app/models/user";
 import { Task } from "@app/models/task";
 import { UserService } from "@app/services/user.service";
 import { TaskService } from "@app/services/task.service";
 import { TokenService } from "@app/services/token.service";
-
 
 
 @Component({
@@ -34,9 +34,7 @@ export class AppComponent implements AfterViewInit {
   tableMode: boolean = true;
   format: string = "dd/MM/yyyy h:mma";
 
-  constructor(private helpers: Helpers, private userService: UserService, private taskService: TaskService, private tokenService: TokenService) {
-
-  }
+  constructor(private helpers: Helpers, private userService: UserService, private taskService: TaskService, private tokenService: TokenService) {}
 
   ngAfterViewInit() {
 
@@ -59,7 +57,6 @@ export class AppComponent implements AfterViewInit {
   ngOnDestroy() {
 
     this.subscription.unsubscribe();
-
   }
 
   loadUsers() {
@@ -79,7 +76,6 @@ export class AppComponent implements AfterViewInit {
         this.usersLoading = false;
       });
   }
-
 
   loadTasks() {
     this.taskLoading = true;
@@ -104,13 +100,18 @@ export class AppComponent implements AfterViewInit {
   }
 
   selectUser(userId: string) {
+    this.taskLoading = true;
     this.userService.getById(userId)
-      .subscribe((data: User) => this.user = data);
+      .subscribe((data: User) => {
+        this.user = data;
+        this.taskLoading = false;
+      });
 
     this.taskService.getTasksByUserId(userId).subscribe((data: Task[]) => {
       this.tasks = data;
       this.selectedTask = data[0];
       this.isTaskSelected = true;
+      this.taskLoading = false;
     });
   }
 

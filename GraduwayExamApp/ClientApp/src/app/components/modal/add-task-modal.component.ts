@@ -1,10 +1,8 @@
-
 import { Component, Input } from '@angular/core';
 import { Task } from "@app/models/task";
 import { User } from "@app/models/user";
 import { TaskService } from "@app/services/task.service";
 import { UserService } from "@app/services/user.service";
-
 
 @Component({
   selector: 'app-add-task-modal',
@@ -39,8 +37,7 @@ export class AddTaskModalComponent {
   set task(task: Task) {
     this._task = task;
   }
-
-
+  
   newTask() {
     if (this.task == null)
       this.task = new Task();

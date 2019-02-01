@@ -1,14 +1,10 @@
 
 <div id="modal-task-view" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <!--<ng-template #isTaskSelected>-->
   <div *ngIf="task" class="modal-dialog">
     <div class="modal-content">
-      <!-- Modal Header -->
       <div class="modal-header text-left">
         <h2 class="modal-title"><i class="fa fa-info"></i> {{ task !== null && task !== undefined ? task.title : ""}}</h2>
       </div>
-      <!-- END Modal Header -->
-      <!-- Modal Body -->
       <div class="modal-body">
         <form action="" method="post" enctype="application/json" class="form-horizontal form-bordered" onsubmit="return false;">
           <fieldset>
@@ -58,21 +54,6 @@
               <label class="col-md-9 col-lg-9 col-sm-8 custom-control-label control-left text-primary">{{creator.firstName + " " + creator.lastName}}</label>
             </div>
           </fieldset>
-          <!--<fieldset>
-            <legend>Password Update</legend>
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="user-settings-password">New Password</label>
-              <div class="col-md-8">
-                <input type="password" id="user-settings-password" name="password" class="form-control" placeholder="Please choose a complex one..">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="user-settings-repassword">Confirm New Password</label>
-              <div class="col-md-8">
-                <input type="password" id="user-settings-repassword" name="user-settings-repassword" class="form-control" placeholder="..and confirm it!">
-              </div>
-            </div>
-          </fieldset>-->
           <div class="form-group form-actions">
             <div class="col-xs-12 text-right">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>

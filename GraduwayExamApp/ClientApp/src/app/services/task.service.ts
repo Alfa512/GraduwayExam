@@ -1,20 +1,14 @@
 
 import { Injectable, Input } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { Subject } from 'rxjs';
 
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { BaseService } from './base.service';
-
 import { Task } from '../models/task';
-
-import { AppConfig } from '../config/config';
-
 import { Helpers } from '../helpers/helpers';
 
 @Injectable()
@@ -26,7 +20,6 @@ export class TaskService extends BaseService {
   constructor(http: HttpClient, helper: Helpers) { super(http, helper); }
 
   isTaskListChanged$ = this.taskListChanged.asObservable();
-  
 
   toggleTaskListChanged() {
     this._taskListChanged = !this._taskListChanged;
@@ -37,14 +30,12 @@ export class TaskService extends BaseService {
     let orderBy = sort === null ? "" : "?orderby=" + sort;
     return this.http.get<Task[]>(this.pathAPI + 'task/list' + orderBy, super.header()).pipe(
       catchError(super.handleError));
-
   }
 
   getTasksByUserId(userId: string): Observable<Task[]> {
 
     return this.http.get<Task[]>(this.pathAPI + 'task/byuserid?userId=' + userId, super.header()).pipe(
       catchError(super.handleError));
-
   }
 
   createTask(task: Task) {
@@ -60,7 +51,5 @@ export class TaskService extends BaseService {
   deleteTask(task: Task) {
 
     return this.http.post(this.pathAPI + 'task/delete', task, super.header());
-    //return this.http.post(this.pathAPI + 'task/delete', { 'taskId': id }, super.header());
-
   }
 }

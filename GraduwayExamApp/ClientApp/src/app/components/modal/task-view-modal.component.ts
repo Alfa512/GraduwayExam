@@ -20,9 +20,7 @@ export class TaskViewModalComponent {
   assignee: User = new User();
   creator: User = new User();
 
-  constructor(private taskService: TaskService, private userService: UserService) {
-
-  }
+  constructor(private taskService: TaskService, private userService: UserService) {}
 
   get task(): Task {
     return this._task;

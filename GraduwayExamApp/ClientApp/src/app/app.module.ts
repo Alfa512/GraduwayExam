@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // Components
 
@@ -15,7 +16,6 @@ import { AppComponent } from './app.component';
 import { Helpers } from './helpers/helpers';
 import { TokenService } from '@app/services/token.service';
 import { UserService } from '@app/services/user.service';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppConfig } from '@app/config/config';
 
 
