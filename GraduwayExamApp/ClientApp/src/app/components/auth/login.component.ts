@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { TokenService } from '@app/services/token.service';
 import { UserService } from '@app/services/user.service';
@@ -29,6 +30,10 @@ export class LoginComponent implements OnInit {
   password: string;
   confirmPassword: string;
 
+  loading: boolean = false;
+  showValidation: boolean;
+  authError: string;
+
   ngOnInit() {
 
   }
@@ -44,11 +49,22 @@ export class LoginComponent implements OnInit {
   }
 
   auth(authUser: User): void {
+    this.loading = true;
+    this.showValidation = false;
+    this.authError = '';
     this.tokenService.auth(authUser).subscribe(token => {
-
+      this.loading = false;
+      this.showValidation = false;
       this.helpers.setToken(token);
       this.close();
+    },
+      (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.showValidation = true;
+        this.authError = 'Invalid Username or Password';
     });
+    this.authError = this.tokenService.errorMessage;
+
   }
 
   logout(): void {

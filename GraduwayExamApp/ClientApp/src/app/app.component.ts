@@ -23,6 +23,8 @@ export class AppComponent implements AfterViewInit {
   subscription: Subscription;
 
   authentication: boolean;
+  taskLoading: boolean = false;
+  usersLoading: boolean = false;
 
   user: User = new User();
   users: User[] = [];
@@ -61,34 +63,43 @@ export class AppComponent implements AfterViewInit {
   }
 
   loadUsers() {
-
+    this.usersLoading = true;
     this.userService.getUsers()
-      .subscribe((data: User[]) => this.users = data);
+      .subscribe((data: User[]) => {
+        this.users = data;
+        this.usersLoading = false;
+      });
   }
 
   updateUsers(sort: number = null) {
+    this.usersLoading = true;
     this.userService.getUsers(sort)
-      .subscribe((data: User[]) => this.users = data);
+      .subscribe((data: User[]) => {
+        this.users = data;
+        this.usersLoading = false;
+      });
   }
 
 
   loadTasks() {
-
+    this.taskLoading = true;
     this.taskService.getTasks()
       .subscribe((data: Task[]) => {
         this.tasks = data;
         this.selectedTask = data[0];
         this.isTaskSelected = true;
+        this.taskLoading = false;
       });
   }
 
   updateTasks(sort: number = null) {
-
+    this.taskLoading = true;
     this.taskService.getTasks(sort)
       .subscribe((data: Task[]) => {
         this.tasks = data;
         this.selectedTask = data[0];
         this.isTaskSelected = true;
+        this.taskLoading = false;
       });
   }
 
@@ -109,11 +120,13 @@ export class AppComponent implements AfterViewInit {
   }
 
   deleteTask(id: string) {
+    this.taskLoading = true;
     let task = this.tasks.find(t => t.id === id);
     this.taskService.deleteTask(task).subscribe((res: boolean) => {
       if (res) {
         this.loadTasks();
       }
+      this.taskLoading = false;
     });
   }
 
@@ -126,9 +139,6 @@ export class AppComponent implements AfterViewInit {
         .subscribe(data => this.loadUsers());
     }
     this.cancel();
-  }
-  editProduct(u: User) {
-    this.user = u;
   }
   cancel() {
     this.user = new User();

@@ -3,8 +3,14 @@
   <div id="login-container" class="animation-fadeIn">
     <div class="login-title text-center">
       <h1><i class="gi gi-flash"></i> <strong>ALFA </strong>Simple CRUD App<br><small>Please <strong>Login</strong> or <strong>Register</strong></small></h1>
+      <div *ngIf="loading" class="loader loader-sm center-block"></div>
     </div>
     <div class="block push-bit">
+      <div class="form-group">
+        <div class="col-xs-12">
+          <label *ngIf="showValidation" class="text-danger">{{authError}}</label>
+        </div>
+      </div>
       <form action="javascript:void(0)" method="post" id="form-login" class="form-horizontal form-bordered form-control-borderless" novalidate="novalidate">
         <div class="form-group">
           <div class="col-xs-12">

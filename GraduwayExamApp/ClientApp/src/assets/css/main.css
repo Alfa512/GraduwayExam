@@ -4110,3 +4110,55 @@ p, .table, .alert, .carousel {
     margin: 0 0 20px !important;
   }
 }
+
+.loader {
+  border: solid #f3f3f3; 
+  border-top: solid #3498db; 
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-xs {
+  border-width: 4px;
+  border-top-width: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.loader-sm{
+  border-width: 4px;
+  border-top-width: 4px;
+  width: 32px;
+  height: 32px;
+}
+
+.loader-md {
+  border-width: 8px;
+  border-top-width: 8px;
+  width: 64px;
+  height: 64px;
+}
+
+.loader-lg {
+  border-width: 16px;
+  border-top-width: 16px;
+  width: 128px;
+  height: 128px;
+}
+
+.loader-block-opt {
+  border-width: 4px;
+  border-top-width: 4px;
+  width: 30px;
+  height: 30px;
+}
